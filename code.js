@@ -53,7 +53,7 @@ Checkbox Css:
     border-top: 1px solid #a0a0a0;
     width: 30px;
     height: 100%;
-    background-color: #5194FD;
+    background-color: #057ABD;
     box-shadow: inset 8px 0 5px -5px hsla(0,0%,0%,.25), inset -8px 0 5px -5px hsla(0,0%,0%,.25);
     border-bottom: 1px solid #a0a0a0;
     margin-top: -1px;
@@ -178,7 +178,7 @@ Popup CSS:
 
 try{
     var copyHtml = '<div class="copy-box"><div class="copy-checkbox"><div class="copy-checkbox-checked"></div></div></div>';
-    var css = '.copy-box{margin-left:-41px;margin-right:10px;border-top:1px solid #a0a0a0;width:30px;height:100%;background-color:#5194FD;box-shadow:inset 8px 0 5px -5px hsla(0,0%,0%,.25),inset -8px 0 5px -5px hsla(0,0%,0%,.25);border-bottom:1px solid #a0a0a0;margin-top:-1px;position:relative;float:left}.copy-checkbox{width:16px;height:16px;background-color:#fff;margin:auto;vertical-align:middle;position:relative;border:1px solid #005DBB;top:5px;cursor:pointer}.copy-checkbox-checked{position:relative;background-color:#000694;width:14px;height:14px;top:1px;margin:auto;display:none}.copy-parent{transition:transform 150ms}.copy-parent:hover{transform:translateX(30px)}.copy-parent.copy-selected{background-color:#B0FF9B;color: black;}';
+    var css = '.copy-box{margin-left:-41px;margin-right:10px;border-top:1px solid #a0a0a0;width:30px;height:100%;background-color:#057ABD;box-shadow:inset 8px 0 5px -5px hsla(0,0%,0%,.25),inset -8px 0 5px -5px hsla(0,0%,0%,.25);border-bottom:1px solid #a0a0a0;margin-top:-1px;position:relative;float:left}.copy-checkbox{width:16px;height:16px;background-color:#fff;margin:auto;vertical-align:middle;position:relative;border:1px solid #005DBB;top:5px;cursor:pointer}.copy-checkbox-checked{position:relative;background-color:#000694;width:14px;height:14px;top:1px;margin:auto;display:none}.copy-parent{transition:transform 150ms}.copy-parent:hover{transform:translateX(30px)}.copy-parent.copy-selected{background-color:#B0FF9B;color: black;}';
     var windowHtml = '<div class="copy-fixed-window"><div class="copy-fixed-window-header">Copy/Paste Tool<div class="copy-collapse">▼</div></div><div class="copy-fixed-window-content"></div><div class="copy-fixed-window-footer"><button class="copy-button">Export</button>&nbsp;<button class="copy-button">Import</button>&nbsp;<button class="copy-button">Copy</button>&nbsp;<button class="copy-button">Paste</button></div></div>';
     var windowCss = '.copy-button,.copy-collapse{margin-top:3px}.copy-fixed-window{position:fixed;width:200px;height:300px;bottom:0;z-index:99999;background-color:#fff;border:1px solid #336398;left:12px;transition:bottom 400ms}.copy-fixed-window.copy-fixed-window-collapsed{bottom:-276px}.copy-fixed-window-header{background-color:#057ABD;border-bottom:1px solid #336398;height:24px;line-height:24px;font-size:1.2em;font-weight:700;color:#fff;padding-left:6px;cursor:pointer}.copy-collapse{float:right;width:16px;height:16px;border:1px solid #fff;margin-right:3px;text-align:center;line-height:16px;font-size:16px}.copy-fixed-window-footer{text-align:center;background-color:#057ABD;border-bottom:1px solid #336398;position:absolute;bottom:0;width:100%;height:24px}';
 

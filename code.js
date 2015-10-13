@@ -1,235 +1,3 @@
-/*
-Copy
-    Tag
-        copy individual configs - 
-        copy all configs
-        individual mappings
-        all mappings
-        applied load rules
-
-    Data Layer
-        individual sources
-        all visible sources
-
-    Load Rules
-        copy individual 
-        copy all
-
-    Extensions
-        copy individual
-        copy all
-
-(if possible)
-    Labels
-        copy individual labels
-        copy all labels
-
-    Users
-
-    Templates
-
-Other Features
-    Rename data sources
-    Toolbox frame
-    import json
-    export json
-    optional copy label
-    if a profile change happens and items were selected in the tool, show a notification that asks if the user would like to discard changes or copy them in
-    needs to be able to update html when a tab is refreshed (either by click or profile change)
-    add a help section
-
-
-
-
-Checkbox html:
-<div class="copy-box">
-    <div class="copy-checkbox">
-        <div class="copy-checkbox-checked"></div>
-    </div>
-</div>
-
-Popup HTML:
-
-<div class="copy-fixed-window">
-    <div class="copy-fixed-window-header">
-        Copy/Paste Tool
-        <div class="copy-collapse">▼</div>
-    </div>
-    <div class="copy-fixed-window-content">
-    </div>
-    <div class="copy-fixed-window-footer">
-        <button class="copy-button copy-button-export">Export</button>&nbsp;
-        <button class="copy-button copy-button-import">Import</button>&nbsp;
-        <button class="copy-button copy-button-copy">Copy</button>&nbsp;
-        <button class="copy-button copy-button-paste">Paste</button>
-    </div>
-</div>
-
-Select all html:
-<div class="copy-select-all copy-box">
-    <div class="copy-checkbox">
-        <div class="copy-checkbox-checked"></div>
-    </div>
-  <div class="copy-select-text">Select all to be copied</div>
-</div>
-
-
-
-Css:
-.copy-box {
-    border-top: 1px solid #a0a0a0;
-    width: 30px;
-    height: 100%;
-    background-color: #057ABD;
-    box-shadow: inset 8px 0 5px -5px hsla(0,0%,0%,.25), inset -8px 0 5px -5px hsla(0,0%,0%,.25);
-    border-bottom: 1px solid #a0a0a0;
-    margin-top: -1px;
-    position:relative;
-    float:left;
-}
-.copy-box-data_layer {
-    margin-left: -41px;
-    margin-right: 10px;
-}
-.copy-checkbox {
-    width: 16px;
-    height: 16px;
-    background-color: #ffffff;
-    margin: auto;
-    vertical-align: middle;
-    position: relative;
-    border: 1px solid #005DBB;
-    top: 5px;
-    cursor: pointer;
-}
-.copy-checkbox-checked {
-    position: relative;
-    background-color: #000694;
-    width: 14px;
-    height: 14px;
-    top: 1px;
-    margin: auto;
-    display:none;
-}
-.copy-parent {
-    transition: transform 150ms;
-}
-.copy-parent:hover {
-    transform: translateX(30px);
-}
-.copy-parent.copy-selected {
-    background-color: #B0FF9B;
-    color: black;
-}
-
-.copy-select-all {
-    height: 27px;
-    width: 100%;
-}
-
-.copy-select-all .copy-checkbox {
-    margin: auto 9px;
-    display: inline-block;
-}
-
-.copy-select-text {
-    display: inline-block;
-    position: relative;
-    top: 6px;
-    color: #ffffff;
-}
-
-.copy-fixed-window {
-    position: fixed;
-    width: 200px;
-    height: 300px;
-    bottom: 0;
-    z-index: 99999;
-    background-color: white;
-    border: 1px solid #336398;
-    left: 12px;
-    transition: bottom 400ms;
-}
-.copy-fixed-window.copy-fixed-window-collapsed {
-    bottom:-276px;
-}
-
-.copy-fixed-window-header {
-    background-color: #057ABD;
-    border-bottom: 1px solid #336398;
-    height: 24px;
-    line-height: 24px;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: white;
-    padding-left: 6px;
-    cursor: pointer;
-}
-
-.copy-collapse {
-    float: right;
-    width: 16px;
-    height: 16px;
-    border: 1px solid #ffffff;
-    margin-top: 3px;
-    margin-right: 3px;
-    text-align: center;
-    line-height: 16px;
-    font-size: 16px;
-}
-
-.copy-fixed-window-content {
-    position: absolute;
-    top: 25px;
-    height: 253px;
-    width: 192px;
-    overflow: scroll;
-    padding: 4px;
-}
-
-.copy-fixed-window-content section ul li {
-    list-style: none;
-    border-bottom: 1px solid #eeeeee;
-    padding: 3px 0;
-}
-
-.copy-fixed-window-content section ul li:last-child {
-    border-bottom-width: 0;
-    margin-bottom: 16px;
-}
-
-.copy-fixed-window-footer {
-    text-align: center;
-    background-color: #057ABD;
-    border-bottom: 1px solid #336398;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 24px;
-}
-
-.copy-button {
-    margin-top: 3px;
-}
-
-.copy-export-box {
-    margin-top: 12px;
-    width: 500px;
-    height: 220px;
-}
-
-*/
-
-///////todo next:
-/*
-    - observable on object to listen for changes: https://developers.google.com/web/updates/2012/11/Respond-to-change-with-Object-observe?hl=en
-    - if DS added, update content section of window to display change
-    - if DS added, add title in content window, if not then remove title
-    - if DS added in window, allow user to delete from there (show icon on hover using css :after selector) and update the UI appropriately if removed from the window
-    - refactor to re-add code on each tab change (as listed below)
-    - if switch to new tab and resetting html, need to check/highlight items listed in object
-*/
-
 (function checkInitCPTool(){
     if(typeof jQuery == "undefined" || !jQuery('#tabs_content li.ui-state-active a').length)
         setTimeout(checkInitCPTool,100);
@@ -239,8 +7,8 @@ Css:
 
 function initCPTool() {
     try{
-        debugger;
-        var css = '.copy-box{border-top:1px solid #a0a0a0;width:30px;height:100%;background-color:#057ABD;box-shadow:inset 8px 0 5px -5px hsla(0,0%,0%,.25),inset -8px 0 5px -5px hsla(0,0%,0%,.25);border-bottom:1px solid #a0a0a0;margin-top:-1px;position:relative;float:left}.copy-box-data_layer{margin-left:-41px;margin-right:10px}.copy-checkbox{width:16px;height:16px;background-color:#fff;margin:auto;vertical-align:middle;position:relative;border:1px solid #005DBB;top:5px;cursor:pointer}.copy-checkbox-checked{position:relative;background-color:#000694;width:14px;height:14px;top:1px;margin:auto;display:none}.copy-parent{transition:transform 150ms}.copy-parent:hover{transform:translateX(30px)}.copy-parent.copy-selected{background-color:#B0FF9B;color:#000}.copy-select-all{height:27px;width:100%}.copy-select-all .copy-checkbox{margin:auto 9px;display:inline-block}.copy-button,.copy-collapse{margin-top:3px}.copy-select-text{display:inline-block;position:relative;top:6px;color:#fff}.copy-fixed-window{position:fixed;width:200px;height:300px;bottom:0;z-index:99999;background-color:#fff;border:1px solid #336398;left:12px;transition:bottom 400ms}.copy-fixed-window.copy-fixed-window-collapsed{bottom:-276px}.copy-fixed-window-header{background-color:#057ABD;border-bottom:1px solid #336398;height:24px;line-height:24px;font-size:1.2em;font-weight:700;color:#fff;padding-left:6px;cursor:pointer}.copy-collapse{float:right;width:16px;height:16px;border:1px solid #fff;margin-right:3px;text-align:center;line-height:16px;font-size:16px}.copy-fixed-window-content{position:absolute;top:25px;height:253px;width:192px;overflow:scroll;padding:4px}.copy-fixed-window-content section ul li{list-style:none;border-bottom:1px solid #eee;padding:3px 0}.copy-fixed-window-content section ul li:last-child{border-bottom-width:0;margin-bottom:16px}.copy-fixed-window-footer{text-align:center;background-color:#057ABD;border-bottom:1px solid #336398;position:absolute;bottom:0;width:100%;height:24px}.copy-export-box{margin-top:12px;width:500px;height:220px}';
+        //debugger;
+        var css = '.copy-box{border-top:1px solid #a0a0a0;width:30px;height:100%;background-color:#057ABD;box-shadow:inset 8px 0 5px -5px hsla(0,0%,0%,.25),inset -8px 0 5px -5px hsla(0,0%,0%,.25);border-bottom:1px solid #a0a0a0;margin-top:-1px;position:relative;float:left}.copy-box-data_layer{margin-left:-41px;margin-right:10px}.copy-box-extensions,.copy-box-load_rules,.copy-box-tags{margin-left:-45px}.copy-select-all-extensions,.copy-select-all-load_rules,.copy-select-all-tags{margin-left:10px;float:none}.copy-checkbox{width:16px;height:16px;background-color:#fff;margin:auto;vertical-align:middle;position:relative;border:1px solid #005DBB;top:5px;cursor:pointer}.copy-checkbox-checked{position:relative;background-color:#000694;width:14px;height:14px;top:1px;margin:auto;display:none}.copy-parent{transition:transform 150ms}.copy-parent:hover{transform:translateX(30px)}.copy-parent:hover .copy-box-extensions,.copy-parent:hover .copy-box-load_rules,.copy-parent:hover .copy-box-tags{margin-left:-34px;transition:margin-left 50ms}.copy-parent.copy-selected{background-color:#B0FF9B;color:#000}.copy-select-all{height:27px;width:100%;border-bottom-width:0}.copy-select-all .copy-checkbox{margin:auto 6px;display:inline-block}.copy-button,.copy-collapse{margin-top:3px}.copy-select-text{display:inline-block;position:relative;top:6px;color:#fff}.copy-fixed-window{position:fixed;width:200px;height:300px;bottom:0;z-index:99999;background-color:#fff;border:1px solid #336398;left:12px;transition:bottom 400ms}.copy-fixed-window.copy-fixed-window-collapsed{bottom:-276px}.copy-fixed-window-header{background-color:#057ABD;border-bottom:1px solid #336398;height:24px;line-height:24px;font-size:1.2em;font-weight:700;color:#fff;padding-left:6px;cursor:pointer}.copy-collapse{float:right;width:16px;height:16px;border:1px solid #fff;margin-right:3px;text-align:center;line-height:16px;font-size:16px}.copy-fixed-window-content{position:absolute;top:25px;height:253px;width:192px;overflow:scroll;padding:4px}.copy-fixed-window-content section ul li{list-style:none;border-bottom:1px solid #eee;padding:3px 0}.copy-fixed-window-content section ul li:last-child{border-bottom-width:0;margin-bottom:16px}.copy-fixed-window-footer{text-align:center;background-color:#057ABD;border-bottom:1px solid #336398;position:absolute;bottom:0;width:100%;height:24px}.copy-export-box{margin-top:12px;width:500px;height:220px}';
         var windowHtml = '<div class="copy-fixed-window"><div class="copy-fixed-window-header">Copy/Paste Tool<div class="copy-collapse">▼</div></div><div class="copy-fixed-window-content"></div><div class="copy-fixed-window-footer"><button class="copy-button copy-button-export">Export</button>&nbsp;<button class="copy-button copy-button-import">Import</button>&nbsp;<button class="copy-button copy-button-copy">Copy</button>&nbsp;<button class="copy-button copy-button-paste">Paste</button></div></div>';
 
         //add global copy object
@@ -304,20 +72,20 @@ function initCPTool() {
                     html += "<li>"+(cp_tool_data.data_layer[key].title || cp_tool_data.data_layer[key].name)+"</li>"
                 html += "</ul></section>";
             }
-            if(Object.keys(cp_tool_data.tags).length) {
-                html += "<section><h3>Data Layer</h3><ul>";
-                for(var key in cp_tool_data.tags)
-                    html += "<li>"+(cp_tool_data.data_layer[key].title || cp_tool_data.data_layer[key].name)+"</li>"
-                html += "</ul></section>";
-            }
             if(Object.keys(cp_tool_data.load_rules).length) {
-                html += "<section><h3>Data Layer</h3><ul>";
+                html += "<section><h3>Load Rules</h3><ul>";
                 for(var key in cp_tool_data.load_rules)
                     html += "<li>"+(cp_tool_data.data_layer[key].title || cp_tool_data.data_layer[key].name)+"</li>"
                 html += "</ul></section>";
             }
+            if(Object.keys(cp_tool_data.tags).length) {
+                html += "<section><h3>Tags</h3><ul>";
+                for(var key in cp_tool_data.tags)
+                    html += "<li>"+(cp_tool_data.data_layer[key].title || cp_tool_data.data_layer[key].name)+"</li>"
+                html += "</ul></section>";
+            }
             if(Object.keys(cp_tool_data.extensions).length) {
-                html += "<section><h3>Data Layer</h3><ul>";
+                html += "<section><h3>Extensions</h3><ul>";
                 for(var key in cp_tool_data.extensions)
                     html += "<li>"+(cp_tool_data.data_layer[key].title || cp_tool_data.data_layer[key].name)+"</li>"
                 html += "</ul></section>";
@@ -326,20 +94,36 @@ function initCPTool() {
         }
 
         //add logic to init the tab selected on initial load as well as when a tab is clicked
-        function addTabHtml(selector,html,type) {
-            if($(selector).length) {
+        function addTabHtml(tabEl,selector,html,type) {
+            if($(selector).length && tabEl.hasClass('ui-state-active')) {
+                debugger;
                 $(selector).prepend(html);
                 $(selector).addClass('copy-parent').addClass('copy-parent-'+type);
 
                 //add select all box
                 var selectAllSel = "";
+
                 if(type == "data_layer") {
                     selectAllSel = "#defineContainer";
+                } else
+                if(type == "load_rules") {
+                    selectAllSel = "#loadrules_content";
+                } else
+                if(type == "extensions") {
+                    selectAllSel = "#customize_content";
+                } else
+                if(type == "tags") {
+                    selectAllSel = "#manage_content";
                 }
-                var selectAllHtml = '<div class="copy-select-all copy-box" copy-select-all-'+type+'><div class="copy-checkbox"><div class="copy-checkbox-checked"></div></div><div class="copy-select-text">Select all to be copied</div></div>';
-                $(selectAllSel).prepend(selectAllHtml);
+
+///////////////////this breaks the accordian - need to find a workaround
+
+                /*if(!$('.copy-select-all-'+type).length) {
+                    var selectAllHtml = '<div class="copy-select-all copy-box copy-select-all-'+type+'""><div class="copy-checkbox"><div class="copy-checkbox-checked"></div></div><div class="copy-select-text">Select all to be copied</div></div>';
+                    $(selectAllSel).prepend(selectAllHtml);
+                }*/
             } else {
-                setTimeout(function(){addTabHtml(selector,html,type);},100);
+                setTimeout(function(){addTabHtml(tabEl,selector,html,type);},100);
             }
         };
         function checkTab(el) {
@@ -351,24 +135,39 @@ function initCPTool() {
             if(id == "tabs_define") {
                 tab = "data_layer";
                 selector = '.ds-row';
+            } else
+            if(id == "tabs_loadrules") {
+                tab = "load_rules";
+                selector = '.loadrules_container:not([data-id=all]) a';
+            } else
+            if(id == "tabs_customizations") {
+                tab = "extensions";
+                selector = '.customize_container a';
+            } else
+            if(id == "tabs_manage") {
+                tab = "tags";
+                selector = '.manage_container a';
             }
 
             if(tab) {
                 var copyHtml = '<div class="copy-box copy-box-'+tab+'"><div class="copy-checkbox"><div class="copy-checkbox-checked"></div></div></div>';
-                addTabHtml(selector,copyHtml,tab);
+                var uiTab = $('#'+id).parent();
+                addTabHtml(uiTab,selector,copyHtml,tab);
             }
         }
 
+        //initial page load tab check
         checkTab(jQuery('#tabs_content li.ui-state-active a'));
 
+        //check tab setup for clicked on tab
         jQuery(document).on('mousedown','#tabs_content li a',function(){
             var a = $(this);
             checkTab(a);
         });
 
-        /**add handlers for copy checkboxes**/
+        /********************add handlers for copy checkboxes*********************/
         //data layer checkbox
-        $(document).on('click', '.copy-select-all .copy-checkbox', function(){
+        $(document).on('click', '.copy-select-all-data_layer .copy-checkbox', function(){
             var me = $(this);
             var checkbox = me.find('.copy-checkbox-checked');
             var boxes = $('.ds-row .copy-checkbox');
@@ -381,7 +180,8 @@ function initCPTool() {
             } else {
                 checkbox.show();
                 boxes.each(function(idx,el){
-                    $(el).click();
+                    if(!$(el).find('.copy-checkbox-checked:visible').length)
+                        $(el).click();
                 });
             }
         });
@@ -397,22 +197,175 @@ function initCPTool() {
             if (checkbox.is(':visible')) {
                 checkbox.hide();
                 parent.removeClass('copy-selected');
-                $('.copy-select-all .copy-checkbox-checked').hide();
+                $('.copy-select-all-data_layer .copy-checkbox-checked').hide();
                 //remove from fixed window and object
                 delete cp_tool_data.data_layer[id];
             } else {
                 checkbox.show();
                 parent.addClass('copy-selected');
+                var updateSABox = true;
+                $('.ds-row .copy-checkbox').each(function(idx,el){
+                    if(!$(el).find('.copy-checkbox-checked:visible').length)
+                        updateSABox = false;
+                });
+                if(updateSABox)
+                    $('.copy-select-all-data_layer .copy-checkbox-checked').show();
                 //add stuff to fixed window and object
                 cp_tool_data.data_layer[id] = utui.data.define[id];
             }
             return false;
         });
 
-        //data sources
-        //tags: inside <a> tag, no margin-right, margin-left: -35px
-        //load rules: $('.loadrules_container')
-        //extensions: $('.customize_container')
+        //load rule checkbox
+        $(document).on('click', '.copy-select-all-load_rules .copy-checkbox', function(){
+            var me = $(this);
+            var checkbox = me.find('.copy-checkbox-checked');
+            var boxes = $('.loadrules_container a .copy-checkbox');
+            
+            if (checkbox.is(':visible')) {
+                checkbox.hide();
+                boxes.each(function(idx,el){
+                    $(el).click();
+                });
+            } else {
+                checkbox.show();
+                boxes.each(function(idx,el){
+                    if(!$(el).find('.copy-checkbox-checked:visible').length)
+                        $(el).click();
+                });
+            }
+        });
+        $(document).on('click', '.copy-box-load_rules .copy-checkbox', function(e) {
+            ////////////// these don't seem to work since the el is inside an <a> tag
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            var me = $(this);
+            var checkbox = me.find('.copy-checkbox-checked');
+            var parent = me.parents('.loadrules_container a');
+            var id = parent.parents('.loadrules_container').data('id');
+            
+            if (checkbox.is(':visible')) {
+                checkbox.hide();
+                parent.removeClass('copy-selected');
+                $('.copy-select-all-load_rules .copy-checkbox-checked').hide();
+                //remove from fixed window and object
+                delete cp_tool_data.load_rules[id];
+            } else {
+                checkbox.show();
+                parent.addClass('copy-selected');
+                var updateSABox = true;
+                $('.loadrules_container a .copy-checkbox').each(function(idx,el){
+                    if(!$(el).find('.copy-checkbox-checked:visible').length)
+                        updateSABox = false;
+                });
+                if(updateSABox)
+                    $('.copy-select-all-load_rules .copy-checkbox-checked').show();
+                //add stuff to fixed window and object
+                cp_tool_data.load_rules[id] = utui.data.loadrules[id];
+            }
+            return false;
+        });
+
+        //extensions boxes
+        $(document).on('click', '.copy-select-all-extensions .copy-checkbox', function(){
+            var me = $(this);
+            var checkbox = me.find('.copy-checkbox-checked');
+            var boxes = $('.customize_container a .copy-checkbox');
+            
+            if (checkbox.is(':visible')) {
+                checkbox.hide();
+                boxes.each(function(idx,el){
+                    $(el).click();
+                });
+            } else {
+                checkbox.show();
+                boxes.each(function(idx,el){
+                    if(!$(el).find('.copy-checkbox-checked:visible').length)
+                        $(el).click();
+                });
+            }
+        });
+        $(document).on('click', '.copy-box-extensions .copy-checkbox', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            var me = $(this);
+            var checkbox = me.find('.copy-checkbox-checked');
+            var parent = me.parents('.customize_container a');
+            var id = parent.parents('.customize_container').data('id');
+            
+            if (checkbox.is(':visible')) {
+                checkbox.hide();
+                parent.removeClass('copy-selected');
+                $('.copy-select-all-extensions .copy-checkbox-checked').hide();
+                //remove from fixed window and object
+                delete cp_tool_data.extensions[id];
+            } else {
+                checkbox.show();
+                parent.addClass('copy-selected');
+                var updateSABox = true;
+                $('.customize_container a .copy-checkbox').each(function(idx,el){
+                    if(!$(el).find('.copy-checkbox-checked:visible').length)
+                        updateSABox = false;
+                });
+                if(updateSABox)
+                    $('.copy-select-all-extensions .copy-checkbox-checked').show();
+                //add stuff to fixed window and object
+                cp_tool_data.extensions[id] = utui.data.customizations[id];
+            }
+            return false;
+        });
+
+        //tags boxes
+        $(document).on('click', '.copy-select-all-tags .copy-checkbox', function(){
+            var me = $(this);
+            var checkbox = me.find('.copy-checkbox-checked');
+            var boxes = $('.manage_container a .copy-checkbox');
+            
+            if (checkbox.is(':visible')) {
+                checkbox.hide();
+                boxes.each(function(idx,el){
+                    $(el).click();
+                });
+            } else {
+                checkbox.show();
+                boxes.each(function(idx,el){
+                    if(!$(el).find('.copy-checkbox-checked:visible').length)
+                        $(el).click();
+                });
+            }
+        });
+        $(document).on('click', '.copy-box-tags .copy-checkbox', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            var me = $(this);
+            var checkbox = me.find('.copy-checkbox-checked');
+            var parent = me.parents('.manage_container a');
+            var id = parent.parents('.manage_container').data('id');
+            
+            if (checkbox.is(':visible')) {
+                checkbox.hide();
+                parent.removeClass('copy-selected');
+                $('.copy-select-all-tags .copy-checkbox-checked').hide();
+                //remove from fixed window and object
+                delete cp_tool_data.tags[id];
+            } else {
+                checkbox.show();
+                parent.addClass('copy-selected');
+                var updateSABox = true;
+                $('.manage_container a .copy-checkbox').each(function(idx,el){
+                    if(!$(el).find('.copy-checkbox-checked:visible').length)
+                        updateSABox = false;
+                });
+                if(updateSABox)
+                    $('.copy-select-all-tags .copy-checkbox-checked').show();
+                //add stuff to fixed window and object
+                cp_tool_data.tags[id] = utui.data.manage[id];
+            }
+            return false;
+        });
 
     }catch(e){console.log(e);}
 }

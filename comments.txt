@@ -83,11 +83,11 @@ Css:
     background-color: #057ABD;
     box-shadow: inset 8px 0 5px -5px hsla(0,0%,0%,.25), inset -8px 0 5px -5px hsla(0,0%,0%,.25);
     border-bottom: 1px solid #a0a0a0;
-    margin-top: -1px;
     position:relative;
     float:left;
 }
 .copy-box-data_layer {
+    margin-top: -1px;
     margin-left: -41px;
     margin-right: 10px;
 }
@@ -131,8 +131,7 @@ Css:
 .copy-parent:hover .copy-box-load_rules,
 .copy-parent:hover .copy-box-tags,
 .copy-parent:hover .copy-box-extensions {
-    margin-left: -34px;
-    transition: margin-left 50ms;
+    margin-left: -30px;
 }
 .copy-parent.copy-selected {
     background-color: #B0FF9B;

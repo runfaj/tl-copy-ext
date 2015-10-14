@@ -1,23 +1,23 @@
 /*
 Copy
     Tag
-        copy individual configs - 
-        copy all configs
+--        copy individual configs
+--        copy all configs
         individual mappings
         all mappings
         applied load rules
 
     Data Layer
-        individual sources
-        all visible sources
+--        individual sources
+--        all visible sources
 
     Load Rules
-        copy individual 
-        copy all
+--        copy individual 
+--        copy all
 
     Extensions
-        copy individual
-        copy all
+--        copy individual
+--        copy all
 
 (if possible)
     Labels
@@ -29,10 +29,10 @@ Copy
     Templates
 
 Other Features
-    Rename data sources
-    Toolbox frame
+--    Rename data sources
+--    Toolbox frame
     import json
-    export json
+--    export json
     optional copy label
     if a profile change happens and items were selected in the tool, show a notification that asks if the user would like to discard changes or copy them in
     needs to be able to update html when a tab is refreshed (either by click or profile change)
@@ -60,8 +60,8 @@ Popup HTML:
     <div class="copy-fixed-window-footer">
         <button class="copy-button copy-button-export">Export</button>&nbsp;
         <button class="copy-button copy-button-import">Import</button>&nbsp;
-        <button class="copy-button copy-button-copy">Copy</button>&nbsp;
-        <button class="copy-button copy-button-paste">Paste</button>
+        <button class="copy-button copy-button-help">Help</button>&nbsp;
+        <button class="copy-button copy-button-clear">Clear</button>
     </div>
 </div>
 
@@ -246,10 +246,36 @@ Css:
 
 ///////todo next:
 /*
-    - observable on object to listen for changes: https://developers.google.com/web/updates/2012/11/Respond-to-change-with-Object-observe?hl=en
-    - if DS added, update content section of window to display change
-    - if DS added, add title in content window, if not then remove title
-    - if DS added in window, allow user to delete from there (show icon on hover using css :after selector) and update the UI appropriately if removed from the window
-    - refactor to re-add code on each tab change (as listed below)
-    - if switch to new tab and resetting html, need to check/highlight items listed in object
+    sprint 1
+    -------------------
+    - if DS added in window, allow user to delete from there (show icon on :hover using :after selector) and update the UI appropriately if removed from the window
+    - on individual tags: (all checks below default to all of them checked)
+        - add checkboxes to each config field (on the right)
+        - add select all box above the config fields
+        - add checkboxes to each mapping field (on the right)
+        - add select all box above the mapping fields
+        - add checkboxes to each load rule field (on the right)
+        - add select all box above the load rule fields
+        - add functionality to capture these checks and update cp_tool_data
+        - if not all checkboxes in the tag are checked, the overall checkbox should become a different color and the row highlight should become a different color. The tool window should also indicate a partial tag somehow.
+    - update css to keep highlight for hovered/expanded accordian items
+
+    sprint 2
+    ------------------
+    - add a clear button to the tool window
+    - capture if a profile is switched to. After load:
+        - re-capture the loaded tab with new checkboxes
+        - if changes are in the tool window, show a popup that asks if they want to "paste" or "clear" the copied items
+            - clear button resets the cp_tool_data object and clears the window
+            - paste button adds all the stuff from the previous profile into the new one, then clears the cp_tool_data object
+    - Add help button/window to tool to show how to use it and a key for colors
+
+    --present finished product to tealium--
+
+    sprint 3
+    ------------------
+    - figure out how to copy labels
+    - figure out how to copy tag templates
+    - figure out how to copy users
+    - update help section for the above items
 */

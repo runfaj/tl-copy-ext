@@ -133,9 +133,9 @@ Css:
 .copy-parent:hover .copy-box-extensions {
     margin-left: -30px;
 }
-.copy-parent.copy-selected {
-    background-color: #B0FF9B;
-    color: black;
+.copy-selected {
+    background-color: #B0FF9B !important;
+    color: black !important;
 }
 
 .copy-select-all {

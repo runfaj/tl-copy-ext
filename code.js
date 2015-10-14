@@ -8,7 +8,7 @@
 function initCPTool() {
     try{
         //debugger;
-        var css = '.copy-box{border-top:1px solid #a0a0a0;width:30px;height:100%;background-color:#057ABD;box-shadow:inset 8px 0 5px -5px hsla(0,0%,0%,.25),inset -8px 0 5px -5px hsla(0,0%,0%,.25);border-bottom:1px solid #a0a0a0;position:relative;float:left}.copy-box-data_layer{margin-top:-1px;margin-left:-41px;margin-right:10px}.copy-box-extensions,.copy-box-load_rules,.copy-box-tags{margin-left:-45px}.copy-select-all-extensions,.copy-select-all-load_rules,.copy-select-all-tags{margin-left:10px;float:none}.copy-checkbox{width:16px;height:16px;background-color:#fff;margin:auto;vertical-align:middle;position:relative;border:1px solid #005DBB;top:5px;cursor:pointer}.copy-checkbox-checked{position:relative;background-color:#000694;width:14px;height:14px;top:1px;margin:auto;display:none}.copy-parent{transition:transform 150ms}.copy-parent:hover{transform:translateX(30px)}.copy-parent:hover .copy-box-extensions,.copy-parent:hover .copy-box-load_rules,.copy-parent:hover .copy-box-tags{margin-left:-30px;}.copy-parent.copy-selected{background-color:#B0FF9B;color:#000}.copy-select-all{height:27px;width:100%;border-bottom-width:0}.copy-select-all .copy-checkbox{margin:auto 6px;display:inline-block}.copy-button,.copy-collapse{margin-top:3px}.copy-select-text{display:inline-block;position:relative;top:6px;color:#fff}.copy-fixed-window{position:fixed;width:200px;height:300px;bottom:0;z-index:99999;background-color:#fff;border:1px solid #336398;left:12px;transition:bottom 400ms}.copy-fixed-window.copy-fixed-window-collapsed{bottom:-276px}.copy-fixed-window-header{background-color:#057ABD;border-bottom:1px solid #336398;height:24px;line-height:24px;font-size:1.2em;font-weight:700;color:#fff;padding-left:6px;cursor:pointer}.copy-collapse{float:right;width:16px;height:16px;border:1px solid #fff;margin-right:3px;text-align:center;line-height:16px;font-size:16px}.copy-fixed-window-content{position:absolute;top:25px;height:253px;width:192px;overflow:scroll;padding:4px}.copy-fixed-window-content section ul li{list-style:none;border-bottom:1px solid #eee;padding:3px 0}.copy-fixed-window-content section ul li:last-child{border-bottom-width:0;margin-bottom:16px}.copy-fixed-window-footer{text-align:center;background-color:#057ABD;border-bottom:1px solid #336398;position:absolute;bottom:0;width:100%;height:24px}.copy-export-box{margin-top:12px;width:500px;height:220px}';
+        var css = '.copy-box{border-top:1px solid #a0a0a0;width:30px;height:100%;background-color:#057ABD;box-shadow:inset 8px 0 5px -5px hsla(0,0%,0%,.25),inset -8px 0 5px -5px hsla(0,0%,0%,.25);border-bottom:1px solid #a0a0a0;position:relative;float:left}.copy-box-data_layer{margin-top:-1px;margin-left:-41px;margin-right:10px}.copy-box-extensions,.copy-box-load_rules,.copy-box-tags{margin-left:-45px}.copy-select-all-extensions,.copy-select-all-load_rules,.copy-select-all-tags{margin-left:10px;float:none}.copy-checkbox{width:16px;height:16px;background-color:#fff;margin:auto;vertical-align:middle;position:relative;border:1px solid #005DBB;top:5px;cursor:pointer}.copy-checkbox-checked{position:relative;background-color:#000694;width:14px;height:14px;top:1px;margin:auto;display:none}.copy-parent{transition:transform 150ms}.copy-parent:hover{transform:translateX(30px)}.copy-parent:hover .copy-box-extensions,.copy-parent:hover .copy-box-load_rules,.copy-parent:hover .copy-box-tags{margin-left:-30px}.copy-selected{background-color:#B0FF9B!important;color:#000!important}.copy-select-all{height:27px;width:100%;border-bottom-width:0}.copy-select-all .copy-checkbox{margin:auto 6px;display:inline-block}.copy-button,.copy-collapse{margin-top:3px}.copy-select-text{display:inline-block;position:relative;top:6px;color:#fff}.copy-fixed-window{position:fixed;width:200px;height:300px;bottom:0;z-index:99999;background-color:#fff;border:1px solid #336398;left:12px;transition:bottom 400ms}.copy-fixed-window.copy-fixed-window-collapsed{bottom:-276px}.copy-fixed-window-header{background-color:#057ABD;border-bottom:1px solid #336398;height:24px;line-height:24px;font-size:1.2em;font-weight:700;color:#fff;padding-left:6px;cursor:pointer}.copy-collapse{float:right;width:16px;height:16px;border:1px solid #fff;margin-right:3px;text-align:center;line-height:16px;font-size:16px}.copy-fixed-window-content{position:absolute;top:25px;height:253px;width:192px;overflow:scroll;padding:4px}.copy-fixed-window-content section ul li{list-style:none;border-bottom:1px solid #eee;padding:3px 0}.copy-fixed-window-content section ul li:last-child{border-bottom-width:0;margin-bottom:16px}.copy-fixed-window-footer{text-align:center;background-color:#057ABD;border-bottom:1px solid #336398;position:absolute;bottom:0;width:100%;height:24px}.copy-export-box{margin-top:12px;width:500px;height:220px}';
         var windowHtml = '<div class="copy-fixed-window"><div class="copy-fixed-window-header">Copy/Paste Tool<div class="copy-collapse">▼</div></div><div class="copy-fixed-window-content"></div><div class="copy-fixed-window-footer"><button class="copy-button copy-button-export">Export</button>&nbsp;<button class="copy-button copy-button-import">Import</button>&nbsp;<button class="copy-button copy-button-copy">Copy</button>&nbsp;<button class="copy-button copy-button-paste">Paste</button></div></div>';
 
         //add global copy object
@@ -98,18 +98,40 @@ function initCPTool() {
             var html = '<div class="copy-box copy-box-'+type+'"><div class="copy-checkbox"><div class="copy-checkbox-checked"></div></div></div>';
 
             if($(selector).length && tabEl.hasClass('ui-state-active')) {
+                //add checkbox onto all rows
                 $(selector).prepend(html);
+                //add parent class onto each parent
                 $(selector).addClass('copy-parent').addClass('copy-parent-'+type);
+                //make the checkbox the same height as the row
                 $('.copy-box-'+type).height($(selector).height());
 
-                //add select all box
                 var selectAllSel = "";
 
                 if(type == "data_layer") {
                     selectAllSel = "#defineContainer";
+
+                    $(selector+" .copy-checkbox-checked").hide();
+                    $(dataLayerSelector).removeClass('copy-selected');
+                    for(var key in cp_tool_data.data_layer) {
+                        var el = $(dataLayerSelector+"[data-tile-key="+key+"]");
+                        if(el.length) {
+                            el.find('.copy-checkbox-checked').show();
+                            el.addClass('copy-selected');
+                        }
+                    }
                 } else
                 if(type == "load_rules") {
                     selectAllSel = "#loadrules_content";
+
+                    $(selector+" .copy-checkbox-checked").hide();
+                    $(dataLayerSelector+" h3").removeClass('copy-selected');
+                    for(var key in cp_tool_data.load_rules) {
+                        var el = $(loadRulesSelector+"[data-id="+key+"]");
+                        if(el.length) {
+                            el.find('.copy-checkbox-checked').show();
+                            el.find('h3').addClass('copy-selected');
+                        }
+                    }
                 } else
                 if(type == "extensions") {
                     selectAllSel = "#customize_content";
@@ -250,17 +272,17 @@ function initCPTool() {
             var me = $(this);
             var checkbox = me.find('.copy-checkbox-checked');
             var parent = me.parents(loadRulesSelector);
-            var id = me.data('id');
+            var id = parent.data('id');
             
             if (checkbox.is(':visible')) {
                 checkbox.hide();
-                parent.removeClass('copy-selected');
+                parent.find('h3').removeClass('copy-selected');
                 $('.copy-select-all-load_rules .copy-checkbox-checked').hide();
                 //remove from fixed window and object
                 delete cp_tool_data.load_rules[id];
             } else {
                 checkbox.show();
-                parent.addClass('copy-selected');
+                parent.find('h3').addClass('copy-selected');
                 var updateSABox = true;
                 $(loadRulesSelector + ' .copy-checkbox').each(function(idx,el){
                     if(!$(el).find('.copy-checkbox-checked:visible').length)

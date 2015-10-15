@@ -258,15 +258,14 @@ Css:
         - add select all box above the load rule fields
         - add functionality to capture these checks and update cp_tool_data
         - if not all checkboxes in the tag are checked, the overall checkbox should become a different color and the row highlight should become a different color. The tool window should also indicate a partial tag somehow.
-    - update css to keep highlight for hovered/expanded accordian items
 
     sprint 2
     ------------------
-    - add a clear button to the tool window
-    - capture if a profile is switched to. After load:
-        - re-capture the loaded tab with new checkboxes
-        - if changes are in the tool window, show a popup that asks if they want to "paste" or "clear" the copied items
-            - clear button resets the cp_tool_data object and clears the window
+    XX - add a clear button to the tool window
+    XX - capture if a profile is switched to. After load:
+        XX - re-capture the loaded tab with new checkboxes
+        XX - if changes are in the tool window, show a popup that asks if they want to "paste" or "clear" the copied items
+            XX - clear button resets the cp_tool_data object and clears the window
             - paste button adds all the stuff from the previous profile into the new one, then clears the cp_tool_data object
     - Add help button/window to tool to show how to use it and a key for colors
 
@@ -279,3 +278,12 @@ Css:
     - figure out how to copy users
     - update help section for the above items
 */
+
+bugs
+------------------------------
+need to reset the select all checkboxes upon a clear event
+sorting - data layer - alphabetical
+extensions/tags/load rules
+    - put type of item next to title
+    - display UID
+- update css to keep highlight for hovered/expanded accordian items

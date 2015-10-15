@@ -10,9 +10,16 @@ function initCPTool() {
         //debugger;
         var css = '.copy-box{border-top:1px solid #a0a0a0;width:30px;height:100%;background-color:#057ABD;box-shadow:inset 8px 0 5px -5px hsla(0,0%,0%,.25),inset -8px 0 5px -5px hsla(0,0%,0%,.25);border-bottom:1px solid #a0a0a0;position:relative;float:left}.copy-box-data_layer{margin-top:-1px;margin-left:-41px;margin-right:10px}.copy-box-extensions,.copy-box-load_rules,.copy-box-tags{margin-left:-45px;height:27px}.copy-checkbox{width:16px;height:16px;background-color:#fff;margin:auto;vertical-align:middle;position:relative;border:1px solid #005DBB;top:5px;cursor:pointer}.copy-checkbox-checked{position:relative;background-color:#000694;width:14px;height:14px;top:1px;margin:auto;display:none}.copy-parent{transition:transform 150ms}.copy-parent:hover{transform:translateX(30px)}.copy-parent:hover .copy-box-extensions,.copy-parent:hover .copy-box-load_rules,.copy-parent:hover .copy-box-tags{margin-left:-30px}.copy-selected{background-color:#B0FF9B!important;color:#000!important}.copy-select-all{height:27px;width:100%;border-bottom-width:0}.copy-select-all-extensions,.copy-select-all-load_rules,.copy-select-all-tags{margin-left:10px;height:26px;width:164px;text-align:left;border-radius:4px;box-shadow:none}.copy-select-all .copy-checkbox{margin:auto 6px;display:inline-block;top:4px}.copy-button,.copy-collapse{margin-top:3px}.copy-select-text{display:inline-block;position:relative;top:5px;color:#fff}.copy-fixed-window{position:fixed;width:200px;height:300px;bottom:0;z-index:99999;background-color:#fff;border:1px solid #336398;left:12px;transition:bottom 400ms}.copy-fixed-window.copy-fixed-window-collapsed{bottom:-276px}.copy-fixed-window-header{background-color:#057ABD;border-bottom:1px solid #336398;height:24px;line-height:24px;font-size:1.2em;font-weight:700;color:#fff;padding-left:6px;cursor:pointer}.copy-collapse{float:right;width:16px;height:16px;border:1px solid #fff;margin-right:3px;text-align:center;line-height:16px;font-size:16px}.copy-fixed-window-content{position:absolute;top:25px;height:253px;width:192px;overflow:scroll;padding:4px}.copy-fixed-window-content section ul li{list-style:none;border-bottom:1px solid #eee;padding:3px 0}.copy-fixed-window-content section ul li:last-child{border-bottom-width:0;margin-bottom:16px}.copy-fixed-window-footer{text-align:center;background-color:#057ABD;border-bottom:1px solid #336398;position:absolute;bottom:0;width:100%;height:24px}.copy-export-box{margin-top:12px;width:500px;height:220px}';
         var windowHtml = '<div class="copy-fixed-window"><div class="copy-fixed-window-header">Copy/Paste Tool<div class="copy-collapse">▼</div></div><div class="copy-fixed-window-content"></div><div class="copy-fixed-window-footer"><button class="copy-button copy-button-export">Export</button>&nbsp;<button class="copy-button copy-button-import">Import</button>&nbsp;<button class="copy-button copy-button-help">Help</button>&nbsp;<button class="copy-button copy-button-clear">Clear</button></div></div>';
+        //main selectors for each row on different tabs
+        var dataLayerSelector = ".ds-row",
+            loadRulesSelector = ".loadrules_container:not([data-id=all])",
+            extensionsSelector = ".customize_container",
+            tagsSelector = ".manage_container";
 
         //add global copy object, call this method to reset it also
         function resetCopyObj() {
+            if(jQuery('.copy-fixed-window-content').length)
+                jQuery('.copy-fixed-window-content').empty();
             window.cp_tool_data = {};
             //init observer to capture any future changes to copy object
             recursiveObserve(cp_tool_data,objectObserver);
@@ -20,8 +27,11 @@ function initCPTool() {
             cp_tool_data.load_rules={};
             cp_tool_data.data_layer={};
             cp_tool_data.extensions={};
+            cp_tool_data.tag_load_rules={}; //each item should be id:[ /*keys to be copied*/ ]
             cp_tool_data.tag_configs={}; //each item should be id:[ /*keys to be copied*/ ]
             cp_tool_data.tag_mappings={}; //each item should be id:[ /*keys in obj.map to be copied*/ ]
+
+            checkTab(jQuery('#tabs_content li.ui-state-active a'));
         }
         //allows us to watch for nested object changes, Chrome and Opera only
         function recursiveObserve(object, callback) {
@@ -60,13 +70,215 @@ function initCPTool() {
             }
         });
 
-        //add handler for exporting the copy object, opens a new popup
-        $('.copy-button-export').on('click',function(){
+        //export popup function
+        function exportPopup(cb){
             var title = "Export Copy/Paste JSON";
             var content = '<h3>Copy the following JSON to save or paste in another account/profile.</h3><textarea class="copy-export-box">' + JSON.stringify(cp_tool_data) + '</textarea>';
 
-            utui.util.showMsgDialog(content,title,function(){});
-        });
+            if(!cb) cb = function(){};
+
+            utui.util.showMsgDialog(content,title,cb);
+        }
+
+        //import popup function
+        function importPopup(){
+            var title = "Import Copy/Paste JSON";
+            var content = '<h3>Paste in JSON that you\'d like to import into this profile.</h3><textarea class="copy-import-box"></textarea>';
+
+            var importFN = function() {
+                var value = $('.copy-import-box').val();
+                pasteFromJson(value);
+            }
+
+            utui.util.showMsgDialog(content,title,importFN);
+        }
+
+        //help popup function
+        function helpPopup(cb){
+            var title = "Copy/Paste Tool Help";
+            var content = 'stuff';
+
+            if(!cb) cb = function(){};
+
+            utui.util.showMsgDialog(content,title,cb);
+        }
+
+        //yesnocancel popup
+        function cpYNCPopup(content, title, yTxt, yCallback, nTxt, nCallback, cTxt, cCallback){
+            var $dialogError = $('#dialog-error');
+
+            if(!$dialogError.is(':visible')) {
+                // error dialog is not yet shown, so show it
+
+                if(!title) title = "";
+
+                var obj = {
+                    autoOpen : true,
+                    height: 'auto',
+                    width : 'auto',
+                    modal : true,
+                    closeOnEscape : false,
+                    closeText : '',
+                    resizable : false,
+                    draggable : false,
+                    title : title,
+                    open:function() {
+                        $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar-close").remove();
+                    },
+                    buttons : {}
+                };
+
+                if(!yTxt) yTxt = "Yes";
+                if(!nTxt) nTxt = "No";
+                if(!cTxt) cTxt = "Cancel";
+
+                obj.buttons[yTxt] = {
+                    click : function(e) {
+                        // Prevents from hiding dialogs that get closed when document is clicked
+                        e.stopImmediatePropagation();
+
+                        $(this).dialog('close');
+                        if (yCallback) {
+                            yCallback();
+                        }
+                    },
+                    style: 'float:right; margin-right: 12px',
+                    text: yTxt
+                };
+                obj.buttons[nTxt] = {
+                    click : function(e) {
+                        // Prevents from hiding dialogs that get closed when document is clicked
+                        e.stopImmediatePropagation();
+
+                        $(this).dialog('close');
+                        if (nCallback) {
+                            nCallback();
+                        }
+                    },
+                    style: 'float:right',
+                    text: nTxt
+                };
+                obj.buttons[cTxt] = {
+                    click : function(e) {
+                        // Prevents from hiding dialogs that get closed when document is clicked
+                        e.stopImmediatePropagation();
+
+                        $(this).dialog('close');
+                        if (cCallback) {
+                            cCallback();
+                        }
+                    },
+                    style: 'float:left; margin-left: 12px',
+                    text: cTxt
+                };
+
+                $('#dialog-error-content').html(content);
+                $('#dialog').dialog('destroy');
+                $('#dialog').show();
+                $('#dialog-error').dialog(obj);
+            }
+        }
+
+        //add handler for exporting the copy object, opens a new popup
+        $('.copy-button-export').on('click',exportPopup);
+        //handler on window for clear button
+        $('.copy-button-clear').on('click',resetCopyObj);
+        //handler on window for help button
+        $('.copy-button-help').on('click',helpPopup);
+        //handler for importing copy
+        $('.copy-button-import').on('click',importPopup);
+
+        //pasting functions
+        function pasteAndClear() {
+            pasteFromJson(JSON.stringify(cp_tool_data));
+            resetCopyObj();
+        }
+        function pasteFromJson(json) {
+            var new_tool_data = JSON.parse(json);
+            if(typeof new_tool_data != "object") new_tool_data = {};
+
+            ////////////////////////////////////////// need to figure out how to not add any tags,ext,lr before all the data layer items are added
+            if(new_tool_data.data_layer) {
+                for (var key in new_tool_data.data_layer) {
+                    (function(){
+                        var defineObj = {};
+                        $.extend(defineObj, new_tool_data.data_layer[key]);
+                        delete defineObj._id;
+                        delete defineObj._title;
+
+                        function checkValid(name, type) {
+                            var valid = true;
+                            for(var key in utui.data.define) {
+                                var obj = utui.data.define[key];
+                                if(obj.name == name && obj.type == type)
+                                    valid = false;
+                            }
+                            return !utui.define.isInvalidVariableName(name,type) && valid;
+                        }
+
+                        var addItem = function(nextId) {
+                            var varName = defineObj.type + '.' + defineObj.name, 
+                            delay = 300, 
+                            setValInterval;
+                            
+                            utui.define.addDataSource(nextId, defineObj.title, defineObj.name, defineObj.type, defineObj.desc);
+                            
+                            utui.define.lastAdded.push(defineObj);
+                            
+                            // Reset the filter so the new data source is shown
+                            $('#filter_showall').trigger('click');
+                        }
+                        ;
+
+                        if (checkValid(defineObj.name,defineObj.type)) {
+                            utui.define.getNextId.fromServer(1, null , 
+                                function(providedLastId, count, nextId) {
+                                    addItem(nextId);
+                                }, 
+                                function(nextId) {
+                                    addItem(nextId);
+                                }
+                            );
+                        } else {
+                            console.log("Datasource "+(defineObj.name||defineObj.title)+" already exists.");
+                        }
+                    })();
+                }
+            }
+
+            if(new_tool_data.extensions) {
+                for (var key in new_tool_data.extensions) {
+                    (function(){
+                        var currObj = new_tool_data.extensions[key],
+                            templateId = currObj.id, //10003
+                            addExtension = function(extId, templateId) {        
+                                // Add to Model
+                                var newObj = {};
+                                $.extend(newObj, currObj);
+                                delete newObj._id;         
+                                exapi.addExtension(extId, templateId, newObj);
+                                utui.customizations.addItem(extId);
+                                utui.customizations.drawJUIAccordion(extId);
+                                utui.labels.helper.renderLabels(extId, utui.customizations.id);
+                                if (exapi.hasOutput(extId)) {
+                                    dsapi.getAllDataSourceSelection();
+                                }
+                            };
+
+                        exapi.getNextIdFromServer(1, null, 
+                            // onSuccess
+                            function(providedLastId, count, extId) {
+                                addExtension(extId, templateId);
+                            },
+                            // onFailure
+                            function(extId) {
+                                addExtension(extId, templateId);
+                            }
+                        );
+                    })();
+                }
+            }
+        }
 
         //callback that is used whenever the copy object changes, updates the window content
         function objectObserver(changes) {
@@ -100,6 +312,15 @@ function initCPTool() {
             }
             container.html(html);
         }
+
+        //subscribe to the profile loaded event
+        utui.util.pubsub.subscribe(utui.constants.profile.LOADED, function() {
+            cpYNCPopup("<div style='width:300px'>You have changes in your copy toolbox pending. Do you want to <b>Clear</b> them? Or do you want to <b>Paste</b> them into this profile? You can also <b>Export</b> them if you want to paste them later.</div>"
+                ,"Pending Copy/Paste Tool Changes"
+                ,"Paste",pasteAndClear
+                ,"Clear",resetCopyObj
+                ,"Export",function(){exportPopup(function(){resetCopyObj();})});
+        });
 
         //add logic to init the tab selected on initial load as well as when a tab is clicked
         function addTabHtml(tabEl,selector,type) {
@@ -190,12 +411,6 @@ function initCPTool() {
             }
         };
 
-        //main selectors for each row on different tabs
-        var dataLayerSelector = ".ds-row",
-            loadRulesSelector = ".loadrules_container:not([data-id=all])",
-            extensionsSelector = ".customize_container",
-            tagsSelector = ".manage_container";
-
         //this function is run to add the proper html when a tab is selected
         function checkTab(el) {
             var id = el.attr('id');
@@ -225,9 +440,6 @@ function initCPTool() {
                 addTabHtml(uiTab,selector,tab);
             }
         }
-
-        //initial page load tab check
-        checkTab(jQuery('#tabs_content li.ui-state-active a'));
 
         //check tab setup for clicked on tab
         jQuery(document).on('mousedown','#tabs_content li a',function(){

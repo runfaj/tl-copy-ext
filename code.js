@@ -8,7 +8,7 @@
 function initCPTool() {
     try{
         //debugger;
-        var css = '.copy-box{border-top:1px solid #a0a0a0;width:30px;height:100%;background-color:#057ABD;box-shadow:inset 8px 0 5px -5px hsla(0,0%,0%,.25),inset -8px 0 5px -5px hsla(0,0%,0%,.25);border-bottom:1px solid #a0a0a0;position:relative;float:left}.copy-box-data_layer{margin-top:-1px;margin-left:-41px;margin-right:10px}.copy-box-extensions,.copy-box-load_rules,.copy-box-tags{margin-left:-45px;height:27px}.copy-checkbox{width:16px;height:16px;background-color:#fff;margin:auto;vertical-align:middle;position:relative;border:1px solid #005DBB;top:5px;cursor:pointer}.copy-checkbox-checked{position:relative;background-color:#000694;width:14px;height:14px;top:1px;margin:auto;display:none}.copy-parent{transition:transform 150ms}.copy-parent:hover{transform:translateX(30px)}.copy-parent:hover .copy-box-extensions,.copy-parent:hover .copy-box-load_rules,.copy-parent:hover .copy-box-tags{margin-left:-30px}.copy-selected{background-color:#B0FF9B!important;color:#000!important}.copy-select-all{height:27px;width:100%;border-bottom-width:0}.copy-select-all-extensions,.copy-select-all-load_rules,.copy-select-all-tags{margin-left:10px;height:26px;width:164px;text-align:left;border-radius:4px;box-shadow:none}.copy-select-all .copy-checkbox{margin:auto 6px;display:inline-block;top:4px}.copy-button,.copy-collapse{margin-top:3px}.copy-select-text{display:inline-block;position:relative;top:5px;color:#fff}.copy-fixed-window{position:fixed;width:200px;height:300px;bottom:0;z-index:99999;background-color:#fff;border:1px solid #336398;left:12px;transition:bottom 400ms}.copy-fixed-window.copy-fixed-window-collapsed{bottom:-276px}.copy-fixed-window-header{background-color:#057ABD;border-bottom:1px solid #336398;height:24px;line-height:24px;font-size:1.2em;font-weight:700;color:#fff;padding-left:6px;cursor:pointer}.copy-collapse{float:right;width:16px;height:16px;border:1px solid #fff;margin-right:3px;text-align:center;line-height:16px;font-size:16px}.copy-fixed-window-content{position:absolute;top:25px;height:253px;width:192px;overflow:scroll;padding:4px}.copy-fixed-window-content section ul li{list-style:none;border-bottom:1px solid #eee;padding:3px 0}.copy-fixed-window-content section ul li:last-child{border-bottom-width:0;margin-bottom:16px}.copy-fixed-window-footer{text-align:center;background-color:#057ABD;border-bottom:1px solid #336398;position:absolute;bottom:0;width:100%;height:24px}.copy-export-box{margin-top:12px;width:500px;height:220px}';
+        var css = '.copy-box{border-top:1px solid #a0a0a0;width:30px;height:100%;background-color:#057ABD;box-shadow:inset 8px 0 5px -5px hsla(0,0%,0%,.25),inset -8px 0 5px -5px hsla(0,0%,0%,.25);border-bottom:1px solid #a0a0a0;position:relative;float:left}.copy-box-data_layer{margin-top:-1px;margin-left:-41px;margin-right:10px}.copy-box-extensions,.copy-box-load_rules,.copy-box-tags{margin-left:-45px;height:27px}.copy-checkbox{width:16px;height:16px;background-color:#fff;margin:auto;vertical-align:middle;position:relative;border:1px solid #005DBB;top:5px;cursor:pointer}.copy-checkbox-checked{position:relative;background-color:#000694;width:14px;height:14px;top:1px;margin:auto;display:none}.copy-parent{transition:transform 150ms}.copy-parent:hover{transform:translateX(30px)}.copy-parent:hover .copy-box-extensions,.copy-parent:hover .copy-box-load_rules,.copy-parent:hover .copy-box-tags{margin-left:-30px}.copy-selected{background-color:#B0FF9B!important;color:#000!important}.copy-select-all{height:27px;width:100%;border-bottom-width:0}.copy-select-all-extensions,.copy-select-all-load_rules,.copy-select-all-tags{margin-left:10px;height:26px;width:164px;text-align:left;border-radius:4px;box-shadow:none}.copy-select-all .copy-checkbox{margin:auto 6px;display:inline-block;top:4px}.copy-button,.copy-collapse{margin-top:3px}.copy-select-text{display:inline-block;position:relative;top:5px;color:#fff}.copy-fixed-window{position:fixed;width:200px;height:300px;bottom:0;z-index:99999;background-color:#fff;border:1px solid #336398;left:12px;transition:bottom 400ms}.copy-fixed-window.copy-fixed-window-collapsed{bottom:-276px}.copy-fixed-window-header{background-color:#057ABD;border-bottom:1px solid #336398;height:24px;line-height:24px;font-size:1.2em;font-weight:700;color:#fff;padding-left:6px;cursor:pointer}.copy-collapse{float:right;width:16px;height:16px;border:1px solid #fff;margin-right:3px;text-align:center;line-height:16px;font-size:16px}.copy-fixed-window-content{position:absolute;top:25px;height:253px;width:192px;overflow:scroll;padding:4px}.copy-fixed-window-content section ul li{list-style:none;border-bottom:1px solid #eee;padding:3px 0}.copy-fixed-window-content section ul li:last-child{border-bottom-width:0;margin-bottom:16px}.copy-fixed-window-footer{text-align:center;background-color:#057ABD;border-bottom:1px solid #336398;position:absolute;bottom:0;width:100%;height:24px}.copy-export-box{margin-top:12px;width:500px;height:220px}.float-right{float:right;}';
         var windowHtml = '<div class="copy-fixed-window"><div class="copy-fixed-window-header">Copy/Paste Tool<div class="copy-collapse">▼</div></div><div class="copy-fixed-window-content"></div><div class="copy-fixed-window-footer"><button class="copy-button copy-button-export">Export</button>&nbsp;<button class="copy-button copy-button-import">Import</button>&nbsp;<button class="copy-button copy-button-help">Help</button>&nbsp;<button class="copy-button copy-button-clear">Clear</button></div></div>';
         //main selectors for each row on different tabs
         var dataLayerSelector = ".ds-row",
@@ -20,6 +20,8 @@ function initCPTool() {
         function resetCopyObj() {
             if(jQuery('.copy-fixed-window-content').length)
                 jQuery('.copy-fixed-window-content').empty();
+            jQuery('.copy-checkbox-checked').hide();
+
             window.cp_tool_data = {};
             //init observer to capture any future changes to copy object
             recursiveObserve(cp_tool_data,objectObserver);
@@ -288,26 +290,48 @@ function initCPTool() {
             var html = "";
             if(Object.keys(cp_tool_data.data_layer).length) {
                 html += "<section><h3>Data Layer</h3><ul>";
-                for(var key in cp_tool_data.data_layer)
-                    html += "<li data-type='data_layer' data-id='"+key+"'>"+(cp_tool_data.data_layer[key].title || cp_tool_data.data_layer[key].name)+"</li>"
+                var items = [];
+                for(var key in cp_tool_data.data_layer) {
+                    var item = cp_tool_data.data_layer[key];
+                    var name = item.title || item.name;
+                    var foundLesser = false;
+                    for(var i in items) {
+                        var curItem = items[i].title || items[i].name;
+                        if(name < curItem) {
+                            items.splice(i,0,item);
+                            foundLesser = true;
+                            break;
+                        }
+                    }
+                    if(!foundLesser)
+                        items.push(item);
+                }
+                for(var key in items)
+                    html += "<li data-type='data_layer' data-id='"+items[key]['_id']+"'>"+(items[key].title || items[key].name)+"</li>";
                 html += "</ul></section>";
             }
             if(Object.keys(cp_tool_data.load_rules).length) {
                 html += "<section><h3>Load Rules</h3><ul>";
                 for(var key in cp_tool_data.load_rules)
-                    html += "<li data-type='load_rules' data-id='"+key+"'>"+(cp_tool_data.load_rules[key].title)+"</li>"
+                    html += "<li data-type='load_rules' data-id='"+key+"'>"+(cp_tool_data.load_rules[key].title)+"</li>";
                 html += "</ul></section>";
             }
             if(Object.keys(cp_tool_data.tags).length) {
                 html += "<section><h3>Tags</h3><ul>";
                 for(var key in cp_tool_data.tags)
-                    html += "<li data-type='tags' data-id='"+key+"'>"+(cp_tool_data.tags[key].title || cp_tool_data.tags[key].tag_name)+"</li>"
+                    html += "<li data-type='tags' data-id='"+key+"'>"+
+                            (cp_tool_data.tags[key].title || cp_tool_data.tags[key].tag_name)+
+                            "<span class='float-right'>(UID " + cp_tool_data.tags[key]._id + ")</span>" +
+                            "</li>";
                 html += "</ul></section>";
             }
             if(Object.keys(cp_tool_data.extensions).length) {
                 html += "<section><h3>Extensions</h3><ul>";
                 for(var key in cp_tool_data.extensions)
-                    html += "<li data-type='extensions' data-id='"+key+"'>"+(cp_tool_data.extensions[key].title)+"</li>"
+                    html += "<li data-type='extensions' data-id='"+key+"'>"+(cp_tool_data.extensions[key].title)+
+                            " - " + utui.config.customizationList[cp_tool_data.extensions[key].id].title +
+                            "<span class='float-right'>(UID " + cp_tool_data.extensions[key]._id + ")</span>" +
+                            "</li>";
                 html += "</ul></section>";
             }
             container.html(html);
@@ -315,6 +339,7 @@ function initCPTool() {
 
         //subscribe to the profile loaded event
         utui.util.pubsub.subscribe(utui.constants.profile.LOADED, function() {
+            //////////////////////////////////////////////////////////////////////// add check to see if items are actually in the cp_tool_data
             cpYNCPopup("<div style='width:300px'>You have changes in your copy toolbox pending. Do you want to <b>Clear</b> them? Or do you want to <b>Paste</b> them into this profile? You can also <b>Export</b> them if you want to paste them later.</div>"
                 ,"Pending Copy/Paste Tool Changes"
                 ,"Paste",pasteAndClear

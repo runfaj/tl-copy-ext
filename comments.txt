@@ -241,6 +241,9 @@ Css:
     width: 500px;
     height: 220px;
 }
+.float-right {
+    float:right;
+}
 
 */
 
@@ -281,9 +284,4 @@ Css:
 
 bugs
 ------------------------------
-need to reset the select all checkboxes upon a clear event
-sorting - data layer - alphabetical
-extensions/tags/load rules
-    - put type of item next to title
-    - display UID
 - update css to keep highlight for hovered/expanded accordian items
